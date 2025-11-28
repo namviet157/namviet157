@@ -1,9 +1,7 @@
 <h1 align="center">Hi 👋, I'm NaVis</h1>
-<h3 align="center">🧠 Always learning, always building | IT Student @ HCMUS</h3>
+<h3 align="center">🧠 Always learning, always building | IT Student </h3>
 
-- 🌱 I’m currently learning **Spring Boot, Bootstrap, REST API**
-
-- 💬 Ask me about **C++, Python, Java, SQL Server, HTML**
+- 🌱 I’m currently learning **Data Science**
 
 <h3 align="left">Connect with me:</h3>
 <p align="left">
