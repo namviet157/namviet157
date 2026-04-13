@@ -31,8 +31,6 @@ I am a 3rd-year Data Science student at the **University of Science (HCMUS)**, p
 | **[Tourism Together Platform](https://github.com/TourismTogether)** | AI-powered travel planner utilizing multilingual semantic search. Optimized retrieval latency to ~87ms by shifting vector computations directly to the database via Supabase RPCs. | `FastAPI`, `pgvector`, `Supabase`, `Sentence-Transformers` |
 | **[Music Recommendation System](https://github.com/namviet157/music-recommendation-system)** | Content-based engine processing 57K+ songs. Generated embeddings via SBERT/Word2Vec and integrated vector search for ultra-fast NLP similarity matching. | `FAISS`, `NLP`, `Streamlit`, `Hugging Face` |
 
-*(Check out my pinned repositories for more details!)*
-
 ---
 
 ## 💻 Tech Stack & Tools
