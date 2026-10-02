@@ -15,7 +15,7 @@
 
 ## 🚀 About Me
 
-I am a 3rd-year Data Science student at the **University of Science (HCMUS)**, passionate about bridging the gap between academic AI research and industry-grade software. I specialize in building complete data pipelines—from web scraping and high-performance ETL to semantic search architectures and business intelligence dashboards.
+I am a final year Data Science student at the **University of Science (HCMUS)**, passionate about bridging the gap between academic AI research and industry-grade software. I specialize in building complete data pipelines—from web scraping and high-performance ETL to semantic search architectures and business intelligence dashboards.
 
 - 🔭 **Currently building:** Scalable AI systems integrating **LLMs, RAG, and Vector Databases (FAISS/pgvector)**.
 - 🌱 **Deep diving into:** Advanced ML architectures (ViT, SLMs, XAI) and high-speed data processing (Polars).
@@ -62,13 +62,31 @@ I am a 3rd-year Data Science student at the **University of Science (HCMUS)**, p
 
 ---
 
-## 📈 GitHub Statistics
+## 📊 GitHub Statistics
 
-<p align="center">
-  <img src="https://github-readme-stats-sigma-five.vercel.app/api?username=namviet157&show_icons=true&theme=radical&hide_border=true&count_private=true&include_all_commits=true" alt="GitHub Stats" height="180"/>
-  <img src="https://github-readme-stats-sigma-five.vercel.app/api/top-langs/?username=namviet157&theme=radical&hide_border=true&layout=compact&langs_count=8" alt="Top Languages" height="180"/>
-</p>
-
-<p align="center">
-  <img src="https://github-readme-activity-graph.vercel.app/graph?username=namviet157&theme=github-compact&hide_border=true&area=true" alt="Contribution Graph" width="90%"/>
-</p>
+<div align="center">
+  <table border="0">
+    <tr>
+      <td width="58%" align="center" valign="middle">
+        <img
+          src="https://raw.githubusercontent.com/namviet157/namviet157/main/profile-3d-contrib/profile-night-rainbow.svg"
+          width="560"
+          alt="GitHub Profile 3D Contribution Graph - Night Rainbow"
+        />
+      </td>
+      <td width="42%" align="center" valign="middle">
+        <img
+          src="https://github-readme-stats-fast.vercel.app/api?username=namviet157&amp;theme=tokyonight&amp;show_icons=true&amp;include_all_commits=true&amp;bg_color=0b0f19&amp;title_color=06B6D4&amp;text_color=e5e7eb&amp;icon_color=8B5CF6&amp;border_color=1f2937&amp;hide_border=false"
+          width="380"
+          alt="GitHub Stats"
+        />
+        <br /><br />
+        <img
+          src="https://github-readme-stats-fast.vercel.app/api/top-langs/?username=namviet157&amp;layout=compact&amp;theme=tokyonight&amp;bg_color=0b0f19&amp;title_color=06B6D4&amp;text_color=e5e7eb&amp;icon_color=8B5CF6&amp;border_color=1f2937&amp;hide_border=false&amp;langs_count=8"
+          width="380"
+          alt="Top Languages"
+        />
+      </td>
+    </tr>
+  </table>
+</div>
