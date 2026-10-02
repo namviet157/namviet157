@@ -31,8 +31,6 @@ I am a final year Data Science student at the **University of Science (HCMUS)**,
 | **[Tourism Together Platform](https://github.com/TourismTogether)** | AI-powered travel planner utilizing multilingual semantic search. Optimized retrieval latency to ~87ms by shifting vector computations directly to the database via Supabase RPCs. | `FastAPI`, `pgvector`, `Supabase`, `Sentence-Transformers` |
 | **[Music Recommendation System](https://github.com/namviet157/music-recommendation-system)** | Content-based engine processing 57K+ songs. Generated embeddings via SBERT/Word2Vec and integrated vector search for ultra-fast NLP similarity matching. | `FAISS`, `NLP`, `Streamlit`, `Hugging Face` |
 
-*(Check out my pinned repositories for more details!)*
-
 ---
 
 ## 💻 Tech Stack & Tools
@@ -64,6 +62,7 @@ I am a final year Data Science student at the **University of Science (HCMUS)**,
 
 ## 📊 GitHub Statistics
 
+<<<<<<< HEAD
 <div align="center">
   <table border="0">
     <tr>
@@ -90,3 +89,13 @@ I am a final year Data Science student at the **University of Science (HCMUS)**,
     </tr>
   </table>
 </div>
+=======
+<p align="center">
+  <img src="https://github-readme-stats-sigma-five.vercel.app/api?username=namviet157&show_icons=true&theme=radical&hide_border=true&count_private=true&include_all_commits=true" alt="GitHub Stats" height="180"/>
+  <img src="https://github-readme-stats-sigma-five.vercel.app/api/top-langs/?username=namviet157&theme=radical&hide_border=true&layout=compact&langs_count=8" alt="Top Languages" height="180"/>
+</p>
+
+<p align="center">
+  <img src="https://github-readme-activity-graph.vercel.app/graph?username=namviet157&theme=github-compact&hide_border=true&area=true" alt="Contribution Graph" width="90%"/>
+</p>
+>>>>>>> 44438268ef4f3c0787f834fe2099df67fce8f828
