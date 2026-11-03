@@ -1,152 +1,207 @@
-"""Generate the profile's self-contained SVG panels: python scripts/render_profile.py.
+"""Render README artwork: pip install -r scripts/requirements.txt; python scripts/render_profile.py.
 
-Design inspiration: https://github.com/aahil-khan/aahil-khan
-Original implementation and personalized content for namviet157.
+Palette, font choices, and ASCII-cat motif reference aahil-khan/aahil-khan.
+Personalized artwork and animation for Bui Nam Viet; no runtime network requests.
 """
-
-from html import escape
 from pathlib import Path
+from svg_tools import Svg, width
 
-ROOT = Path(__file__).resolve().parents[1]
-OUT = ROOT / "assets"
-THEMES = {
-    "light": {"paper": "#f7f5ee", "surface": "#ffffff", "ink": "#20232c", "muted": "#535a66", "accent": "#f5cf48", "grid": "#e7e4dc"},
-    "dark": {"paper": "#1a1b26", "surface": "#24283b", "ink": "#c0caf5", "muted": "#a9b1d6", "accent": "#e0af68", "grid": "#2b3044"},
-}
+OUT = Path(__file__).resolve().parents[1] / 'assets'
 
 
-class Panel:
-    def __init__(self, theme, height, title):
-        self.t = THEMES[theme]
-        self.height, self.title, self.parts = height, title, []
-
-    def rect(self, x, y, w, h, fill="surface", radius=12, shadow=False):
-        if shadow:
-            self.parts.append(f'<rect x="{x+5}" y="{y+5}" width="{w}" height="{h}" rx="{radius}" fill="{self.t["ink"]}"/>')
-        self.parts.append(f'<rect x="{x}" y="{y}" width="{w}" height="{h}" rx="{radius}" fill="{self.t.get(fill, fill)}" stroke="{self.t["ink"]}" stroke-width="1.5"/>')
-
-    def text(self, x, y, value, size=16, weight=400, color="ink", mono=False):
-        family = "Consolas,Menlo,monospace" if mono else "Verdana,DejaVu Sans,sans-serif"
-        self.parts.append(f'<text x="{x}" y="{y}" font-family="{family}" font-size="{size}" font-weight="{weight}" fill="{self.t.get(color, color)}" xml:space="preserve">{escape(value)}</text>')
-
-    def paper(self):
-        self.rect(2, 2, 828, self.height-12, "paper", shadow=True)
-        self.parts.append(f'<rect x="3" y="3" width="826" height="{self.height-14}" rx="12" fill="url(#grid)"/>')
-
-    def cat(self, x, y):
-        for i, row in enumerate([r" /\_/\ ", "( o.o )", " > ^ <"]):
-            self.text(x, y+i*17, row, 16, mono=True)
-
-    def save(self, name, theme):
-        svg = f'''<svg xmlns="http://www.w3.org/2000/svg" width="840" height="{self.height}" viewBox="0 0 840 {self.height}" role="img" aria-labelledby="title">
-<title id="title">{escape(self.title)}</title>
-<defs><pattern id="grid" width="32" height="32" patternUnits="userSpaceOnUse"><path d="M32 0H0V32" fill="none" stroke="{self.t['grid']}" stroke-width="0.8"/></pattern></defs>
-{''.join(self.parts)}</svg>'''
-        (OUT / f"{name}-{theme}.svg").write_text(svg, encoding="utf-8")
+def cat(c, x, y, walking=False):
+    c.css += ['@keyframes blink{0%,31%,35%,73%,77%,100%{opacity:1}32%,34%,74%,76%{opacity:0}}',
+              '@keyframes shut{0%,31%,35%,73%,77%,100%{opacity:0}32%,34%,74%,76%{opacity:1}}',
+              '@keyframes tail{from{transform:rotate(-8deg)}to{transform:rotate(8deg)}}']
+    parts = c.text(x, y, r' /\_/\ ', 15, mono=True)
+    parts += c.text(x, y+17, '( o.o )', 15, mono=True, attrs='style="animation:blink 8s step-end infinite"')
+    parts += c.text(x, y+17, '( -.- )', 15, mono=True, attrs='class="hidden-motion" style="opacity:0;animation:shut 8s step-end infinite"')
+    parts += c.text(x, y+34, ' > ^ <', 15, mono=True)
+    parts += c.text(x, y+51, '(\")_(\")', 15, mono=True)
+    parts += f'<g style="transform-origin:{x+77}px {y+48}px;animation:tail 2.4s ease-in-out infinite alternate">'+c.text(x+73, y+51, '_/', 15, mono=True)+'</g>'
+    if walking:
+        c.css += ['@keyframes stroll{0%{transform:translateX(840px)}40%,53%{transform:translateX(360px)}94%,100%{transform:translateX(-110px)}}',
+                  '@keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(-2px)}}',
+                  '@media(prefers-reduced-motion:reduce){.walking-cat{transform:translateX(600px)}}']
+        c.group('<g style="animation:bob .4s ease-in-out infinite">'+parts+'</g>', 'class="walking-cat" style="animation:stroll 20s linear infinite"')
+    else:
+        c.add(parts)
 
 
 def hero(theme):
-    p = Panel(theme, 390, "Bui Nam Viet — AI Engineer, NLP & Generative AI. Ho Chi Minh City, Vietnam.")
-    p.paper()
-    p.text(36, 44, "Ho Chi Minh City, Vietnam", 13, color="muted")
-    p.text(31, 121, "BUI NAM", 62, 700)
-    p.text(31, 192, "VIET", 62, 700)
-    p.rect(36, 218, 157, 30, "accent", 4)
-    p.text(47, 239, "AI Engineer", 18, 700, "#20232c")
-    p.text(36, 284, "NLP & Generative AI", 24, 700)
-    p.text(36, 318, "From data and models", 19)
-    p.text(36, 346, "to useful AI systems.", 19)
-    p.cat(699, 70)
-    p.rect(472, 125, 317, 220, shadow=True)
-    p.text(491, 153, "o  o  o     now.txt", 13, color="muted", mono=True)
-    for i, (label, value) in enumerate([
-        ("focus", "RAG & semantic search"), ("build", "Efficient ML systems"),
-        ("past", "AI intern @ TMA"), ("study", "Data Science @ HCMUS"),
-        ("GPA", "3.73 / 4.0"), ("grad", "July 2027 (expected)")]):
-        p.text(490, 185+i*26, f"{label:<6} {value}", 13, mono=True)
-    p.save("hero", theme)
-
-
-PROJECTS = [
-    ("scholarhub", "ScholarHub", "Research assistance grounded in 15K+ arXiv papers.", "Parse, chunk, embed, retrieve — then answer with context.", "FastAPI / BGE / pgvector / OpenAI", "15K+", "research papers"),
-    ("tourism", "Tourism Together", "Multilingual semantic search for travel discovery.", "Moved vector ranking into PostgreSQL with Supabase RPCs.", "Sentence Transformers / FastAPI / pgvector", "~87 ms", "retrieval latency"),
-    ("hypernetworks", "HyperNetworks", "Static weight generation and controlled ML experiments.", "HyperConv2D, HyperLSTM-style sequences, and ablations.", "TensorFlow / Keras / PyTorch", "12 runs", "controlled benchmarks"),
-    ("music", "Music Recommender", "Find similar lyrics across a catalog of 57,650 songs.", "Compare TF-IDF, FastText, Word2Vec, and SBERT retrieval.", "Sentence Transformers / FAISS / Streamlit", "57,650", "songs indexed"),
-]
-
-
-def projects(theme):
-    p = Panel(theme, 90, "Selected work — RAG, retrieval, and model experiments")
-    p.text(4, 29, "Selected work", 26, 700)
-    p.text(4, 61, "RAG, retrieval, and model experiments", 15, color="muted")
-    p.save("work-head", theme)
-    for slug, name, line1, line2, stack, metric, label in PROJECTS:
-        p = Panel(theme, 154, f"{name}. {line1} {line2} {metric} {label}.")
-        p.rect(2, 2, 828, 140, shadow=True)
-        p.rect(19, 20, 5, 108, "accent", 2)
-        p.text(40, 37, name, 23, 700)
-        p.text(40, 66, line1, 13, color="muted")
-        p.text(40, 89, line2, 13, color="muted")
-        p.text(40, 120, stack, 11, color="muted", mono=True)
-        p.text(635, 66, metric, 26, 700)
-        p.text(635, 91, label, 11, color="muted")
-        p.save(f"work-{slug}", theme)
-
-
-def experience(theme):
-    p = Panel(theme, 228, "TMA Solutions — SignTalk. AI Engineer Intern, March–September 2026. 520 classes, 111,220 labeled samples, 0.42 ms median CPU inference.")
-    p.paper()
-    p.text(32, 40, "Experience / TMA Solutions — SignTalk", 23, 700)
-    p.text(32, 70, "AI Engineer Intern · March–September 2026", 14, color="muted")
-    p.text(32, 110, "Video → MediaPipe keypoints → PyTorch → ONNX Runtime", 16, 700)
-    p.text(32, 143, "520 gesture classes across English and Vietnamese · 111,220 labeled samples", 14)
-    p.text(32, 172, "98.67% Top-1 on an independent English test set; 97.83% on Vietnamese samples", 13)
-    p.text(32, 199, "0.42 ms median CPU inference per sample · ~2.1× faster with ONNX Runtime", 13)
-    p.save("experience", theme)
-
-
-def stack(theme):
-    p = Panel(theme, 316, "Toolbox: Python, C++, TypeScript, PyTorch, TensorFlow, RAG, vector search, FastAPI, ONNX Runtime, and Docker.")
-    p.paper()
-    p.text(32, 46, "What I build with", 27, 700)
-    rows = [
-        ("Languages", "Python · C++ · TypeScript"),
-        ("Deep learning", "PyTorch · TensorFlow · Keras · MediaPipe"),
-        ("LLMs & retrieval", "RAG · OpenAI · Sentence Transformers · BGE"),
-        ("Vector search", "pgvector · FAISS · Qdrant · LangGraph"),
-        ("Backend & data", "FastAPI · PostgreSQL · MongoDB · Polars"),
-        ("Delivery", "ONNX Runtime · Docker · AWS · GitHub Actions"),
-    ]
-    for i, (label, values) in enumerate(rows):
-        p.text(32, 91+i*36, label, 13, 700, "muted")
-        p.text(204, 91+i*36, values, 14)
-    p.save("stack", theme)
-
-
-def footer(theme):
-    p = Panel(theme, 138, "Have an AI problem to solve? Contact Bui Nam Viet at bnviet05@gmail.com.")
-    p.paper()
-    p.text(32, 47, "Have an AI problem to solve?", 27, 700)
-    p.text(32, 82, "Let's build something useful together.", 15, color="muted")
-    p.text(32, 109, "bnviet05@gmail.com", 14, mono=True)
-    p.cat(727, 54)
-    p.save("footer", theme)
+    c = Svg(theme, 414, 'Bui Nam Viet, Ho Chi Minh City, Vietnam. AI Engineer building RAG, retrieval, and efficient ML systems. A cat blinks above the now.txt window.')
+    c.paper()
+    c.add(c.text(40, 54, 'HO CHI MINH CITY, VIETNAM', 11, 500, 'muted', attrs='letter-spacing="1.5"'))
+    c.add(c.line(248, 50, 460, 50))
+    c.css += ['@keyframes rise{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:translateY(0)}}',
+              '@keyframes highlight{from{transform:scaleX(0)}to{transform:scaleX(1)}}']
+    for i, (word, y) in enumerate([('BUI NAM', 150), ('VIET', 236)]):
+        c.group(c.text(35, y, word, 88, 700, attrs='letter-spacing="-2.5"'), f'style="animation:rise .7s cubic-bezier(.16,1,.3,1) {i*.15}s both"')
+    c.add(c.text(40, 293, 'AI Engineer building', 22))
+    c.group(c.text(40, 324, 'RAG, retrieval, and efficient ML', 22, 700), 'style="animation:rise .6s ease-out .3s both"')
+    c.add(f'<rect x="40" y="331" width="{width("RAG, retrieval, and efficient ML", 22, 700)}" height="5" rx="2" fill="{c.t["accent"]}" style="transform-box:fill-box;transform-origin:left;animation:highlight .65s ease-out 1s both"/>')
+    c.add(c.text(40, 357, 'from data to useful systems.', 22))
+    c.window(496, 133, 278, 220, 'now.txt')
+    rows = [('focus', 'NLP & Generative AI'), ('build', 'RAG & vector search'), ('past', 'AI intern @ TMA'), ('study', 'HCMUS, final year'), ('GPA', '3.73 / 4.0'), ('grad', 'July 2027')]
+    for i, (label, value) in enumerate(rows):
+        c.type_line(512, 192+i*25, f'{label:<6}{value}', 11.5, .4+i*.12)
+    cat(c, 674, 72)
+    return c
 
 
 def buttons(theme):
-    for slug, label in [("site", "Portfolio"), ("resume", "Résumé PDF"), ("linkedin", "LinkedIn"), ("email", "Email")]:
-        p = Panel(theme, 54, label)
-        p.rect(2, 2, 143, 42, "accent" if slug == "site" else "surface", 18, True)
-        p.text(18, 29, label, 15, 700, "#20232c" if slug == "site" else "ink")
-        # Keep the button viewBox as wide as the visible pill.
-        p.save(f"btn-{slug}", theme)
-        path = OUT / f"btn-{slug}-{theme}.svg"
-        path.write_text(path.read_text(encoding="utf-8").replace('width="840"', 'width="154"').replace('viewBox="0 0 840', 'viewBox="0 0 154'), encoding="utf-8")
+    for name, label, primary in [('site', 'Portfolio', True), ('resume', 'Résumé PDF ↓', False), ('linkedin', 'LinkedIn ↗', False), ('email', 'Email ↗', False)]:
+        text_w = width(label, 15, 500)
+        w = round(text_w+50+(35 if primary else 0))
+        c = Svg(theme, 56, label, w=w)
+        c.add(c.rect(2, 4, w-12, 43, r=22, shadow=True))
+        c.add(c.text(22, 31, label, 15, 500))
+        if primary:
+            x = w-35
+            c.add(f'<circle cx="{x}" cy="25.5" r="14" fill="{c.t["accent"]}" stroke="{c.t["ink"]}" stroke-width="1.5"/>')
+            c.css.append('@keyframes nudge{0%,65%,100%{transform:translateX(0)}80%{transform:translateX(3px)}}')
+            c.group(c.text(x-7, 31, '→', 18, 700, 'accent_ink'), 'style="animation:nudge 2.5s ease-in-out infinite"')
+        save(c, 'btn-'+name, theme)
 
 
-if __name__ == "__main__":
+def experience(theme):
+    c = Svg(theme, 222, 'AI Engineer Intern, TMA Solutions — SignTalk. March–September 2026. 520 classes, 111,220 labeled samples; median CPU inference 0.42 ms/sample.')
+    c.paper()
+    c.add(c.text(32, 36, 'EXPERIENCE', 10.5, 500, 'muted', attrs='letter-spacing="1.5"'))
+    c.add(c.text(32, 73, 'TMA Solutions — SignTalk', 28, 700))
+    c.add(c.text(32, 99, 'AI Engineer Intern · March–September 2026', 13, color='muted'))
+    c.add(c.text(32, 139, '520 classes · 111,220 labeled samples · PyTorch → ONNX', 16, 500))
+    c.add(c.text(32, 168, '98.67% Top-1 on an independent English test set; 97.83% on Vietnamese samples.', 13, color='muted'))
+    c.add(c.text(32, 195, 'Median CPU inference: 0.42 ms/sample, approximately 2.1× faster with ONNX Runtime.', 13, color='muted'))
+    c.css.append('@keyframes status{0%,100%{opacity:1}50%{opacity:.35}}')
+    c.add(f'<circle cx="792" cy="45" r="5" fill="{c.t["accent"]}" style="animation:status 3s ease-in-out infinite"/>')
+    return c
+
+
+PROJECTS = [
+    ('scholarhub', 'ScholarHub', 'Research assistance over 15K+ arXiv papers', ['FASTAPI', 'BGE', 'PGVECTOR', 'OPENAI']),
+    ('tourism', 'Tourism Together', 'Multilingual semantic travel search', ['FASTAPI', 'SENTENCE TRANSFORMERS', 'PGVECTOR']),
+    ('hypernetworks', 'HyperNetworks', 'Weight generation and controlled benchmarks', ['TENSORFLOW', 'PYTORCH', 'KERAS']),
+    ('music', 'Music Recommender', 'Lyric-based discovery across 57,650 songs', ['SBERT', 'FAISS', 'STREAMLIT']),
+]
+
+
+def project_rows(theme):
+    c = Svg(theme, 94, 'Selected work: four AI systems and experiments worth opening.')
+    c.add(c.text(4, 25, 'SELECTED WORK', 11, 500, 'muted', attrs='letter-spacing="1.5"'))
+    c.add(c.text(4, 65, 'Four things worth opening', 30, 700))
+    c.add(c.line(4, 91, 836, 91, 'ink', 2))
+    save(c, 'work-head', theme)
+    for i, (slug, name, tagline, tools) in enumerate(PROJECTS):
+        c = Svg(theme, 136, f'{name}: {tagline}. Animated illustration of the project workflow.')
+        c.add(c.text(4, 77, f'{i+1:02}', 54, 700, 'none', attrs=f'stroke="{c.t["ink"]}" stroke-width="1.3"'))
+        c.add(c.text(103, 43, name, 27, 700))
+        c.add(c.text(103, 72, tagline, 13.5, color='muted'))
+        c.add(c.text(103, 102, '  ·  '.join(tools), 9.5, 500, 'subtle'))
+        c.add(c.line(4, 132, 836, 132))
+        c.css.append('@keyframes arrow{0%,70%,100%{transform:translate(0,0)}85%{transform:translate(3px,-3px)}}')
+        c.group(c.text(814, 42, '↗', 23, 500), 'style="animation:arrow 3s ease-in-out infinite"')
+        if slug == 'scholarhub':
+            c.type_line(548, 37, '$ ask scholarhub', 11.5)
+            c.type_line(548, 62, '15K+ papers -> [context]', 11.5, .7, 'muted')
+            c.type_line(548, 87, 'answer + sources', 11.5, 1.6, 'signal')
+            progress(c, 548, 106, 210)
+        elif slug == 'tourism':
+            c.type_line(548, 37, '? multilingual query', 11.5)
+            c.type_line(548, 62, 'intent -> vector -> top-k', 11.5, .8, 'muted')
+            c.type_line(548, 87, '2.8 s -> ~87 ms', 11.5, 1.6, 'signal')
+            progress(c, 548, 106, 210)
+        elif slug == 'hypernetworks':
+            c.type_line(548, 37, '[hypernet] -> weights', 11.5)
+            c.type_line(548, 62, '[target]   -> evaluate', 11.5, .9, 'muted')
+            for j, h in enumerate([12, 18, 26, 20, 33, 39, 35, 45, 41, 47, 44, 50]):
+                c.css.append(f'@keyframes bar{j}{{0%,100%{{transform:scaleY(.45)}}50%{{transform:scaleY(1)}}}}')
+                c.add(f'<rect x="{552+j*16}" y="{121-h}" width="9" height="{h}" rx="2" fill="{c.t["accent"]}" style="transform-box:fill-box;transform-origin:bottom;animation:bar{j} {2+j*.08}s ease-in-out {j*.1}s infinite"/>')
+        else:
+            c.type_line(548, 35, '? find similar lyrics', 11.5)
+            c.type_line(548, 59, '57,650 songs / 4 models', 11.5, .8, 'muted')
+            for j in range(19):
+                h = [14, 24, 36, 20, 29, 42, 18][j%7]
+                c.css.append(f'@keyframes eq{j}{{0%,100%{{transform:scaleY(.25)}}50%{{transform:scaleY(1)}}}}')
+                c.add(f'<rect x="{550+j*11}" y="{116-h}" width="5" height="{h}" rx="2" fill="{c.t["accent"]}" style="transform-box:fill-box;transform-origin:bottom;animation:eq{j} {1+j%4*.2}s ease-in-out {j*.09}s infinite"/>')
+        save(c, 'work-'+slug, theme)
+
+
+def progress(c, x, y, w):
+    c.add(f'<rect x="{x}" y="{y}" width="{w}" height="5" rx="2" fill="{c.t["grid"]}"/>')
+    c.css.append('@keyframes scan{0%{transform:translateX(0);opacity:0}15%,80%{opacity:1}100%{transform:translateX(155px);opacity:0}}')
+    c.add(f'<rect x="{x}" y="{y}" width="50" height="5" rx="2" fill="{c.t["accent"]}" style="animation:scan 3s ease-in-out infinite"/>')
+
+
+STACK = [
+    ('Languages', [('Python','python-original.svg'),('C++','cplusplus-original.svg'),('TypeScript','Typescript.svg')]),
+    ('Deep learning', [('PyTorch','PyTorch_logo_icon.svg'),('TensorFlow','TensorFlow_logo.svg'),('Keras','Keras_logo.svg'),('MediaPipe','mediapipe.svg')]),
+    ('LLM & retrieval', [('OpenAI','openai.png'),('RAG',None),('BGE',None),('LangGraph',None),('Embeddings',None)]),
+    ('Vector search', [('pgvector','postgresql-original.svg'),('FAISS',None),('Qdrant','qdrant.png')]),
+    ('Backend & data', [('FastAPI','FastAPI.svg'),('PostgreSQL','postgresql-original.svg'),('MongoDB','MongoDB.svg'),('Polars',None)]),
+    ('Delivery', [('ONNX','onnx-runtime.png'),('Docker','docker-original.svg'),('AWS','amazonwebservices-original-wordmark.svg'),('Actions','githubactions-original.svg')]),
+]
+
+
+def stack(theme):
+    c = Svg(theme, 460, 'What I build with: Python, C++, TypeScript, PyTorch, TensorFlow, Keras, MediaPipe, LLMs, retrieval, vector search, backend, and deployment tools. A sleeping cat breathes beneath the tool badges.')
+    c.paper()
+    c.add(c.text(40, 44, 'TOOLBOX', 11, 500, 'muted', attrs='letter-spacing="1.5"'))
+    c.add(c.text(40, 81, 'What I build with', 28, 700))
+    c.css.append('@keyframes pop{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}')
+    for row, (label, tools) in enumerate(STACK):
+        y = 110+row*45
+        c.add(c.text(40, y+20, label, 11, 500, 'muted'))
+        x = 186
+        for j, (name, logo) in enumerate(tools):
+            w = width(name, 12.5, 500)+(47 if logo else 26)
+            start = len(c.parts)
+            c.add(c.rect(x, y, w, 30, r=8, shadow=True))
+            if logo:
+                c.icon(x+10, y+7, logo, 16)
+            c.add(c.text(x+(34 if logo else 13), y+20, name, 12.5, 500))
+            body = ''.join(c.parts[start:]); del c.parts[start:]
+            c.group(body, f'style="animation:pop .5s ease-out {(row*4+j)*.035}s both"')
+            x += w+12
+        assert x < 818, (label, x)
+    c.css.append('@keyframes breathe{0%,100%{transform:translateY(0)}50%{transform:translateY(-1.5px)}}')
+    nap = [r'     |\      _,,,---,,_', r"     /,`.-'`'    -.  ;-;;,_", r"    |,4-  ) )-,_. ,\ (  `'-'", r"   '---''(_/--'  `-'\_)"]
+    c.group(''.join(c.text(541, 383+i*14, line, 12, color='muted', mono=True) for i,line in enumerate(nap)), 'style="animation:breathe 3.6s ease-in-out infinite"')
+    c.css.append('@keyframes zzz{0%{opacity:0;transform:translate(0,0)}30%{opacity:1}100%{opacity:0;transform:translate(10px,-22px)}}')
+    for j in range(3):
+        c.group(c.text(557+j*10, 380, 'z', 10+j*2, color='subtle', mono=True), f'class="hidden-motion" style="animation:zzz 3.6s linear {j*1.2}s infinite"')
+    return c
+
+
+def footer(theme):
+    c = Svg(theme, 222, "Let's build something useful. Contact Bui Nam Viet: bnviet05@gmail.com. An ASCII cat trots across the footer.")
+    c.add(c.rect(2, 2, 830, 212, 'band', shadow=True))
+    c.add(c.text(40, 43, 'CONTACT', 11, 500, 'muted', attrs='letter-spacing="1.5"'))
+    c.add(c.text(40, 88, "Let's build something useful.", 33, 700))
+    c.add(c.text(40, 118, 'NLP, RAG, or an interesting ML problem — email is the fastest way to reach me.', 14, color='muted'))
+    c.add(c.text(40, 146, 'bnviet05@gmail.com', 12, mono=True))
+    c.add(c.line(40, 200, 792, 200, attrs='stroke-dasharray="2 7" stroke-linecap="round"'))
+    c.defs.append('<clipPath id="cat-floor"><rect x="4" y="149" width="824" height="57"/></clipPath>')
+    start = len(c.parts); cat(c, 0, 150, walking=True)
+    body = ''.join(c.parts[start:]); del c.parts[start:]
+    c.group('<g transform="translate(0,40) scale(1,.8)">'+body+'</g>', 'clip-path="url(#cat-floor)"')
+    return c
+
+
+def save(c, name, theme):
+    svg = c.render()
+    (OUT/f'{name}-{theme}.svg').write_text(svg, encoding='utf-8')
+    # Browsers do not reliably forward reduced-motion preferences into SVG img
+    # documents. Select explicit still variants from the outer picture element.
+    still = svg.replace('</svg>', '<style>*{animation:none!important}.hidden-motion{display:none!important}.walking-cat{transform:translateX(600px)}</style></svg>')
+    (OUT/f'{name}-{theme}-still.svg').write_text(still, encoding='utf-8')
+
+
+if __name__ == '__main__':
     OUT.mkdir(exist_ok=True)
-    for theme in THEMES:
-        for render in (hero, buttons, experience, projects, stack, footer):
-            render(theme)
-    print(f"Generated {len(list(OUT.glob('*.svg')))} SVG assets.")
+    for theme in ('light', 'dark'):
+        for name, fn in [('hero',hero),('experience',experience),('stack',stack),('footer',footer)]:
+            save(fn(theme), name, theme)
+        buttons(theme)
+        project_rows(theme)
+    print('Rendered 26 animated/theme SVGs and 26 reduced-motion still variants.')
