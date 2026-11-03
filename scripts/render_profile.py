@@ -247,6 +247,20 @@ def recognition(theme):
         save(c, 'cert-'+slug, theme)
 
 
+def typography(theme):
+    c = Svg(theme, 88, 'I build AI systems from data preparation and model training to retrieval APIs and optimized inference. My focus is NLP, Generative AI, and efficient ML systems.')
+    c.add(c.text(4, 21, 'I build AI systems from data preparation and model training', 16))
+    c.add(c.text(4, 46, 'to retrieval APIs and optimized inference.', 16))
+    c.add(c.text(4, 75, 'Focused on NLP, Generative AI, and efficient ML systems.', 16, 700))
+    save(c, 'intro', theme)
+
+    c = Svg(theme, 52, 'GitHub activity — expand or collapse the contribution graph.', w=220)
+    c.add(c.rect(2, 2, 208, 40, r=14, shadow=True))
+    c.add(c.text(18, 29, 'GitHub activity', 18, 700))
+    c.add(f'<path d="M175 30v-6m8 6V18m8 12V13" fill="none" stroke="{c.t["accent"]}" stroke-width="3" stroke-linecap="round"/>')
+    save(c, 'activity-label', theme)
+
+
 def save(c, name, theme):
     svg = c.render()
     (OUT/f'{name}-{theme}.svg').write_text(svg, encoding='utf-8')
@@ -264,4 +278,5 @@ if __name__ == '__main__':
         buttons(theme)
         project_rows(theme)
         recognition(theme)
+        typography(theme)
     print(f'Rendered {len(list(OUT.glob("*.svg")))} theme and reduced-motion SVG assets.')

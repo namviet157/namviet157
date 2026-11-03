@@ -5,7 +5,7 @@
 <a href="https://www.linkedin.com/in/viet-bui-us23/"><picture><source media="(prefers-reduced-motion: reduce) and (prefers-color-scheme: dark)" srcset="assets/btn-linkedin-dark-still.svg" /><source media="(prefers-reduced-motion: reduce)" srcset="assets/btn-linkedin-light-still.svg" /><source media="(prefers-color-scheme: dark)" srcset="assets/btn-linkedin-dark.svg" /><img src="assets/btn-linkedin-light.svg" width="124" alt="LinkedIn" /></picture></a>
 <a href="mailto:bnviet05@gmail.com"><picture><source media="(prefers-reduced-motion: reduce) and (prefers-color-scheme: dark)" srcset="assets/btn-email-dark-still.svg" /><source media="(prefers-reduced-motion: reduce)" srcset="assets/btn-email-light-still.svg" /><source media="(prefers-color-scheme: dark)" srcset="assets/btn-email-dark.svg" /><img src="assets/btn-email-light.svg" width="101" alt="Email" /></picture></a>
 
-I build AI systems from data preparation and model training to retrieval APIs and optimized inference. My focus is **NLP, Generative AI, and efficient ML systems**.
+<picture><source media="(prefers-reduced-motion: reduce) and (prefers-color-scheme: dark)" srcset="assets/intro-dark-still.svg" /><source media="(prefers-reduced-motion: reduce)" srcset="assets/intro-light-still.svg" /><source media="(prefers-color-scheme: dark)" srcset="assets/intro-dark.svg" /><img src="assets/intro-light.svg" width="100%" alt="I build AI systems from data preparation and model training to retrieval APIs and optimized inference. My focus is NLP, Generative AI, and efficient ML systems." /></picture>
 
 <br>
 
@@ -42,8 +42,8 @@ I build AI systems from data preparation and model training to retrieval APIs an
 <a href="mailto:bnviet05@gmail.com"><picture><source media="(prefers-reduced-motion: reduce) and (prefers-color-scheme: dark)" srcset="assets/footer-dark-still.svg" /><source media="(prefers-reduced-motion: reduce)" srcset="assets/footer-light-still.svg" /><source media="(prefers-color-scheme: dark)" srcset="assets/footer-dark.svg" /><img src="assets/footer-light.svg" width="100%" alt="Have an AI problem to solve? Email Bui Nam Viet at bnviet05@gmail.com." /></picture></a>
 
 <details>
-<summary>GitHub activity</summary>
+<summary><picture><source media="(prefers-reduced-motion: reduce) and (prefers-color-scheme: dark)" srcset="assets/activity-label-dark-still.svg" /><source media="(prefers-reduced-motion: reduce)" srcset="assets/activity-label-light-still.svg" /><source media="(prefers-color-scheme: dark)" srcset="assets/activity-label-dark.svg" /><img src="assets/activity-label-light.svg" width="220" alt="GitHub activity" /></picture></summary>
 
-<img src="https://raw.githubusercontent.com/namviet157/namviet157/main/profile-3d-contrib/profile-night-rainbow.svg" width="100%" alt="GitHub 3D contribution graph" />
+<img src="https://raw.githubusercontent.com/namviet157/namviet157/main/profile-3d-contrib/profile-green-animate.svg" width="100%" alt="GitHub 3D contribution graph" />
 
 </details>
