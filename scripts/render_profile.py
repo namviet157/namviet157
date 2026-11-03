@@ -41,10 +41,14 @@ def hero(theme):
     c.group(c.text(40, 324, 'RAG, retrieval, and efficient ML', 22, 700), 'style="animation:rise .6s ease-out .3s both"')
     c.add(f'<rect x="40" y="331" width="{width("RAG, retrieval, and efficient ML", 22, 700)}" height="5" rx="2" fill="{c.t["accent"]}" style="transform-box:fill-box;transform-origin:left;animation:highlight .65s ease-out 1s both"/>')
     c.add(c.text(40, 357, 'from data to useful systems.', 22))
-    c.window(496, 133, 278, 220, 'now.txt')
-    rows = [('focus', 'NLP & Generative AI'), ('build', 'RAG & vector search'), ('past', 'AI intern @ TMA'), ('study', 'HCMUS, final year'), ('GPA', '3.73 / 4.0'), ('grad', 'July 2027')]
-    for i, (label, value) in enumerate(rows):
-        c.type_line(512, 192+i*25, f'{label:<6}{value}', 11.5, .4+i*.12)
+    c.window(496, 133, 278, 240, 'now.txt')
+    rows = [('focus', 185, ['NLP & Generative AI']), ('build', 212, ['RAG & vector search']),
+            ('past', 239, ['AI intern @ TMA']), ('study', 266, ['VNU-HCM University', 'of Science']),
+            ('GPA', 315, ['3.73 / 4.0']), ('grad', 342, ['July 2027'])]
+    for i, (label, y, lines) in enumerate(rows):
+        c.add(c.text(512, y, label, 12, 700, '#9A6700' if theme == 'light' else '#E0AF68'))
+        for j, value in enumerate(lines):
+            c.type_line(558, y+j*17, value, 11.5, .4+i*.12+j*.08)
     cat(c, 674, 72)
     return c
 
@@ -188,6 +192,61 @@ def footer(theme):
     return c
 
 
+def recognition(theme):
+    c = Svg(theme, 94, 'Background & recognition: education, competition awards, scholarships, and certifications.')
+    c.add(c.text(4, 25, 'BACKGROUND & RECOGNITION', 11, 500, 'muted', attrs='letter-spacing="1.5"'))
+    c.add(c.text(4, 65, 'Learning, building, and competing', 30, 700))
+    c.add(c.line(4, 91, 836, 91, 'ink', 2))
+    save(c, 'recognition-head', theme)
+
+    c = Svg(theme, 180, 'VNU-HCM University of Science. Bachelor of Information Technology, major in Data Science. GPA 3.73/4.0. Expected graduation July 2027.')
+    c.paper()
+    c.add(c.text(32, 36, 'EDUCATION', 10.5, 500, 'muted', attrs='letter-spacing="1.5"'))
+    c.add(c.text(32, 74, 'VNU-HCM University of Science', 28, 700))
+    c.add(c.text(32, 105, 'Bachelor of Information Technology · Major in Data Science', 15, color='muted'))
+    for x, label in [(32, 'GPA 3.73 / 4.0'), (221, 'Graduating July 2027'), (468, 'Final-year student')]:
+        w = width(label, 13, 700)+28
+        c.add(c.rect(x, 125, w, 30, 'accent' if x == 32 else 'surface', r=8, shadow=True))
+        c.add(c.text(x+14, 145, label, 13, 700, 'accent_ink' if x == 32 else 'ink'))
+    save(c, 'education', theme)
+
+    awards = [
+        ('aib', 'Runner-up', 'AI in Business 3 · 2026', 'ZERO-STOP E-BORDER', 'LLMs · RAG · OCR · Computer vision'),
+        ('attacker', 'Runner-up', 'ATTACKER 2026', 'BelieveLedger', 'Financial data for small merchants'),
+        ('hackathon', 'Consolation Prize', 'HCMUTE Hackathon 2025', 'UniHub', 'Academic resources & AI study tools'),
+        ('scholarship', '3 consecutive years', 'Academic Encouragement', 'Scholarship · 2023–2025', 'VNU-HCM University of Science'),
+    ]
+    for slug, badge, event, project, detail in awards:
+        c = Svg(theme, 166, f'{badge}: {event}. {project}. {detail}.', w=410)
+        c.add(c.rect(2, 2, 398, 154, shadow=True))
+        badge_w = width(badge, 12, 700)+26
+        c.add(c.rect(20, 17, badge_w, 27, 'accent', r=8))
+        c.add(c.text(33, 36, badge, 12, 700, 'accent_ink'))
+        # Draw a medal directly as vector art so no remote icon is required.
+        c.add(f'<path d="M358 17l7 23 7-11 7 11 7-23" fill="{c.t["accent"]}" stroke="{c.t["ink"]}" stroke-width="1.5"/>')
+        c.add(f'<circle cx="372" cy="43" r="10" fill="{c.t["accent"]}" stroke="{c.t["ink"]}" stroke-width="1.5"/>')
+        c.add(c.text(20, 77, event, 20, 700))
+        c.add(c.text(20, 105, project, 16, 500))
+        c.add(c.text(20, 133, detail, 12, color='muted'))
+        save(c, 'award-'+slug, theme)
+
+    certificates = [
+        ('ml', 'Machine Learning', 'Stanford University & DeepLearning.AI', '2026'),
+        ('google', 'Google Data Analytics', 'Professional Certificate · Coursera', '2025'),
+        ('sql', 'SQL (Advanced)', 'HackerRank Certified', '2025'),
+        ('toeic', 'TOEIC 785', 'English communication proficiency', '2025'),
+    ]
+    for slug, name, issuer, year in certificates:
+        c = Svg(theme, 106, f'{name}. {issuer}. {year}.', w=410)
+        c.add(c.rect(2, 2, 398, 94, shadow=True))
+        c.add(c.rect(19, 21, 27, 27, 'accent', r=8))
+        c.add(f'<path d="M25 34l5 5 10-12" fill="none" stroke="{c.t["accent_ink"]}" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>')
+        c.add(c.text(59, 39, name, 19, 700))
+        c.add(c.text(20, 75, issuer, 12, color='muted'))
+        c.add(c.text(356, 75, year, 11, color='muted'))
+        save(c, 'cert-'+slug, theme)
+
+
 def save(c, name, theme):
     svg = c.render()
     (OUT/f'{name}-{theme}.svg').write_text(svg, encoding='utf-8')
@@ -204,4 +263,5 @@ if __name__ == '__main__':
             save(fn(theme), name, theme)
         buttons(theme)
         project_rows(theme)
-    print('Rendered 26 animated/theme SVGs and 26 reduced-motion still variants.')
+        recognition(theme)
+    print(f'Rendered {len(list(OUT.glob("*.svg")))} theme and reduced-motion SVG assets.')
