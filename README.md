@@ -1,71 +1,43 @@
-<h1 align="center">👋 Hi, I'm Bui Nam Viet (NaVis)</h1>
+<picture><source media="(prefers-color-scheme: dark)" srcset="assets/hero-dark.svg" /><img src="assets/hero-light.svg" width="100%" alt="Bui Nam Viet — AI Engineer, NLP &amp; Generative AI. Data Science at HCMUS, Ho Chi Minh City." /></picture>
 
-<h3 align="center">AI Engineer | Data Scientist | Data Analyst</h3>
+<a href="https://namviet-portfolio.vercel.app"><picture><source media="(prefers-color-scheme: dark)" srcset="assets/btn-site-dark.svg" /><img src="assets/btn-site-light.svg" width="154" alt="Portfolio" /></picture></a>
+<a href="https://namviet-portfolio.vercel.app/bui-nam-viet-resume.pdf"><picture><source media="(prefers-color-scheme: dark)" srcset="assets/btn-resume-dark.svg" /><img src="assets/btn-resume-light.svg" width="154" alt="Résumé PDF" /></picture></a>
+<a href="https://www.linkedin.com/in/viet-bui-us23/"><picture><source media="(prefers-color-scheme: dark)" srcset="assets/btn-linkedin-dark.svg" /><img src="assets/btn-linkedin-light.svg" width="154" alt="LinkedIn" /></picture></a>
+<a href="mailto:bnviet05@gmail.com"><picture><source media="(prefers-color-scheme: dark)" srcset="assets/btn-email-dark.svg" /><img src="assets/btn-email-light.svg" width="154" alt="Email" /></picture></a>
 
-<p align="center">
-  <img src="https://readme-typing-svg.herokuapp.com?font=Fira+Code&pause=1000&color=9745F5&center=true&vCenter=true&width=500&lines=Building+End-to-End+AI+%26+Data+Systems;Machine+Learning+%7C+NLP+%7C+Vector+Search;Turning+Raw+Data+Into+Business+Insights" alt="Typing SVG" />
-</p>
+I build AI systems from data preparation and model training to retrieval APIs and optimized inference. My focus is **NLP, Generative AI, and efficient ML systems**.
 
-<p align="center">
-  <a href="mailto:buinamviet15705@gmail.com"><img src="https://img.shields.io/badge/Email-D14836?style=for-the-badge&logo=gmail&logoColor=white" alt="Email" /></a>
-  <a href="https://linkedin.com/in/viet-bui-0a4176293"><img src="https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white" alt="LinkedIn" /></a>
-</p>
+<br>
 
----
+<picture><source media="(prefers-color-scheme: dark)" srcset="assets/experience-dark.svg" /><img src="assets/experience-light.svg" width="100%" alt="AI Engineer Intern at TMA Solutions — SignTalk, March–September 2026. Built a 520-class sign-language recognition pipeline with PyTorch, MediaPipe, and ONNX Runtime. Median CPU inference: 0.42 ms per sample." /></picture>
 
-## 🚀 About Me
+<br>
 
-I am a final year Data Science student at the **University of Science (HCMUS)**, passionate about bridging the gap between academic AI research and industry-grade software. I specialize in building complete data pipelines—from web scraping and high-performance ETL to semantic search architectures and business intelligence dashboards.
+<picture><source media="(prefers-color-scheme: dark)" srcset="assets/work-head-dark.svg" /><img src="assets/work-head-light.svg" width="100%" alt="Selected work: RAG, retrieval, and model experiments" /></picture>
+<a href="https://github.com/namviet157/ScholarHub"><picture><source media="(prefers-color-scheme: dark)" srcset="assets/work-scholarhub-dark.svg" /><img src="assets/work-scholarhub-light.svg" width="100%" alt="ScholarHub: end-to-end RAG and context-grounded Q&amp;A over 15K+ arXiv papers." /></picture></a>
+<a href="https://github.com/TourismTogether/ai-service"><picture><source media="(prefers-color-scheme: dark)" srcset="assets/work-tourism-dark.svg" /><img src="assets/work-tourism-light.svg" width="100%" alt="Tourism Together: multilingual semantic search; latency reduced from 2.8 s to approximately 87 ms." /></picture></a>
+<a href="https://github.com/namviet157/HyperNetworks"><picture><source media="(prefers-color-scheme: dark)" srcset="assets/work-hypernetworks-dark.svg" /><img src="assets/work-hypernetworks-light.svg" width="100%" alt="HyperNetworks: HyperConv2D and HyperLSTM-style experiments, with 12 controlled benchmark runs." /></picture></a>
+<a href="https://github.com/namviet157/music-recommendation-system"><picture><source media="(prefers-color-scheme: dark)" srcset="assets/work-music-dark.svg" /><img src="assets/work-music-light.svg" width="100%" alt="Music Recommender: compare four lyric representations across 57,650 songs with FAISS retrieval." /></picture></a>
 
-- 🔭 **Currently building:** Scalable AI systems integrating **LLMs, RAG, and Vector Databases (FAISS/pgvector)**.
-- 🌱 **Deep diving into:** Advanced ML architectures (ViT, SLMs, XAI) and high-speed data processing (Polars).
-- 💼 **Looking for:** Internship opportunities in Data Science, AI Engineering, or Data Analytics.
+<br>
 
----
+<picture><source media="(prefers-color-scheme: dark)" srcset="assets/stack-dark.svg" /><img src="assets/stack-light.svg" width="100%" alt="Toolbox: Python, C++, TypeScript, PyTorch, TensorFlow, Keras, MediaPipe, RAG, OpenAI, Sentence Transformers, BGE, pgvector, FAISS, Qdrant, LangGraph, FastAPI, PostgreSQL, MongoDB, Polars, ONNX Runtime, Docker, AWS, and GitHub Actions." /></picture>
 
-## 🏆 Featured Projects
+### Background & recognition
 
-| Project | Description | Tech Stack |
-| :--- | :--- | :--- |
-| **[Tiki E-Commerce Analytics](https://github.com/namviet157/ecommerce-data-analysis)** | End-to-end data pipeline to analyze price structures and customer satisfaction. Crawled 10K+ reviews, built high-performance ETL, and applied Random Forest & LDA Topic Modeling to extract business insights. | `Polars`, `PostgreSQL`, `Selenium`, `Power BI`, `Scikit-learn` |
-| **[Tourism Together Platform](https://github.com/TourismTogether)** | AI-powered travel planner utilizing multilingual semantic search. Optimized retrieval latency to ~87ms by shifting vector computations directly to the database via Supabase RPCs. | `FastAPI`, `pgvector`, `Supabase`, `Sentence-Transformers` |
-| **[Music Recommendation System](https://github.com/namviet157/music-recommendation-system)** | Content-based engine processing 57K+ songs. Generated embeddings via SBERT/Word2Vec and integrated vector search for ultra-fast NLP similarity matching. | `FAISS`, `NLP`, `Streamlit`, `Hugging Face` |
+- **HCMUS:** Bachelor of Information Technology, major in Data Science · **GPA 3.73/4.0** · Expected graduation: July 2027.
+- **Runner-up:** AI in Business 3 (2026), ZERO-STOP E-BORDER; ATTACKER 2026, BelieveLedger.
+- **Consolation Prize:** HCMUTE Hackathon 2025, UniHub.
+- **Academic Encouragement Scholarship:** Three consecutive years, 2023–2025.
+- **Certifications:** [Machine Learning — Stanford & DeepLearning.AI](https://coursera.org/share/e10d011678f775632feb65a21465f45c), [Google Data Analytics](https://coursera.org/share/0bbaae18e9e1d2674dd7bfa9580eae3e), [SQL (Advanced)](https://www.hackerrank.com/certificates/0d15281fdd07) · TOEIC 785.
 
----
+<br>
 
-## 💻 Tech Stack & Tools
+<a href="mailto:bnviet05@gmail.com"><picture><source media="(prefers-color-scheme: dark)" srcset="assets/footer-dark.svg" /><img src="assets/footer-light.svg" width="100%" alt="Have an AI problem to solve? Email Bui Nam Viet at bnviet05@gmail.com." /></picture></a>
 
-**Machine Learning & AI:**
-![PyTorch](https://img.shields.io/badge/PyTorch-%23EE4C2C.svg?style=for-the-badge&logo=PyTorch&logoColor=white)
-![scikit-learn](https://img.shields.io/badge/scikit--learn-%23F7931E.svg?style=for-the-badge&logo=scikit-learn&logoColor=white)
-![Hugging Face](https://img.shields.io/badge/-HuggingFace-FDEE21?style=for-the-badge&logo=HuggingFace&logoColor=black)
-![Pandas](https://img.shields.io/badge/pandas-%23150458.svg?style=for-the-badge&logo=pandas&logoColor=white)
+<details>
+<summary>GitHub activity</summary>
 
-**Data Engineering & Backend:**
-![Python](https://img.shields.io/badge/python-3670A0?style=for-the-badge&logo=python&logoColor=ffdd54)
-![FastAPI](https://img.shields.io/badge/FastAPI-005571?style=for-the-badge&logo=fastapi)
-![Postgres](https://img.shields.io/badge/postgres-%23316192.svg?style=for-the-badge&logo=postgresql&logoColor=white)
-![MongoDB](https://img.shields.io/badge/MongoDB-%234ea94b.svg?style=for-the-badge&logo=mongodb&logoColor=white)
-![Supabase](https://img.shields.io/badge/Supabase-3ECF8E?style=for-the-badge&logo=supabase&logoColor=white)
+<img src="https://raw.githubusercontent.com/namviet157/namviet157/main/profile-3d-contrib/profile-night-rainbow.svg" width="100%" alt="GitHub 3D contribution graph" />
 
-**Data Analytics & BI:**
-![Power Bi](https://img.shields.io/badge/power_bi-F2C811?style=for-the-badge&logo=powerbi&logoColor=black)
-![Tableau](https://img.shields.io/badge/Tableau-E97627?style=for-the-badge&logo=Tableau&logoColor=white)
-![SQL](https://img.shields.io/badge/SQL-%2300599C.svg?style=for-the-badge&logo=sqlite&logoColor=white)
-
-**DevOps & Deployment:**
-![Docker](https://img.shields.io/badge/docker-%230db7ed.svg?style=for-the-badge&logo=docker&logoColor=white)
-![Git](https://img.shields.io/badge/git-%23F05033.svg?style=for-the-badge&logo=git&logoColor=white)
-![Linux](https://img.shields.io/badge/Linux-FCC624?style=for-the-badge&logo=linux&logoColor=black)
-
----
-
-## 📊 GitHub Statistics
-
-<div align="center">
-  <img
-    src="https://raw.githubusercontent.com/namviet157/namviet157/main/profile-3d-contrib/profile-night-rainbow.svg"
-    width="700"
-    alt="GitHub Profile 3D Contribution Graph - Night Rainbow"
-  />
-</div>
+</details>
